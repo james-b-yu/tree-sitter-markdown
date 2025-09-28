@@ -9,9 +9,9 @@ use crate::{INLINE_LANGUAGE, LANGUAGE};
 ///
 /// This is a convenience wrapper around [`LANGUAGE`] and [`INLINE_LANGUAGE`].
 pub struct MarkdownParser {
-    parser: Parser,
-    block_language: Language,
-    inline_language: Language,
+    pub parser: Parser,
+    pub block_language: Language,
+    pub inline_language: Language,
 }
 
 /// A stateful object for walking a [`MarkdownTree`] efficiently.
@@ -273,7 +273,7 @@ impl MarkdownParser {
             .set_language(block_language)
             .expect("Could not load block grammar");
         let block_tree =
-parser.parse_with_options(callback, old_tree.map(|tree| &tree.block_tree), None)?;
+            parser.parse_with_options(callback, old_tree.map(|tree| &tree.block_tree), None)?;
         let (mut inline_trees, mut inline_indices) = if let Some(old_tree) = old_tree {
             let len = old_tree.inline_trees.len();
             (Vec::with_capacity(len), HashMap::with_capacity(len))
@@ -326,7 +326,7 @@ parser.parse_with_options(callback, old_tree.map(|tree| &tree.block_tree), None)
             let inline_tree = parser.parse_with_options(
                 callback,
                 old_tree.and_then(|old_tree| old_tree.inline_trees.get(i)),
-None,
+                None,
             )?;
             inline_trees.push(inline_tree);
             inline_indices.insert(node.id(), i);
