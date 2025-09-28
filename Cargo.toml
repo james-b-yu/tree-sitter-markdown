@@ -13,15 +13,15 @@ autoexamples = false
 
 build = "bindings/rust/build.rs"
 include = [
-  "bindings/rust/*",
-  "tree-sitter-markdown/src/*",
-  "tree-sitter-markdown-inline/src/*",
-  "tree-sitter-markdown/grammar.js",
-  "tree-sitter-markdown-inline/grammar.js",
-  "tree-sitter-markdown/queries/*",
-  "tree-sitter-markdown-inline/queries/*",
-  "common/grammar.js",
-  "common/html_entities.json",
+    "bindings/rust/*",
+    "tree-sitter-markdown/src/*",
+    "tree-sitter-markdown-inline/src/*",
+    "tree-sitter-markdown/grammar.js",
+    "tree-sitter-markdown-inline/grammar.js",
+    "tree-sitter-markdown/queries/*",
+    "tree-sitter-markdown-inline/queries/*",
+    "common/grammar.js",
+    "common/html_entities.json",
 ]
 
 [features]
@@ -32,10 +32,10 @@ path = "bindings/rust/lib.rs"
 
 [dependencies]
 tree-sitter-language = "0.1"
-tree-sitter = { version = "0.24", optional = true }
+tree-sitter = { git = "https://github.com/tree-sitter/tree-sitter.git", optional = true }
 
 [dev-dependencies]
-tree-sitter = "0.24.3"
+tree-sitter = { git = "https://github.com/tree-sitter/tree-sitter.git" }
 
 [build-dependencies]
 cc = "1.1.22"
