@@ -8,6 +8,22 @@ fn main() {
     #[cfg(target_env = "msvc")]
     c_config.flag("-utf-8");
 
+    if std::env::var("TARGET").unwrap() == "wasm32-unknown-unknown" {
+        let manifest_dir = std::env::var("CARGO_MANIFEST_DIR").unwrap();
+        let wasm_headers = std::path::Path::new(&manifest_dir).join("wasm/include");
+        let wasm_src = std::path::Path::new(&manifest_dir).join("wasm/src");
+
+        println!("cargo:rerun-if-changed={}", wasm_headers.display());
+        println!("cargo:rerun-if-changed={}", wasm_src.display());
+
+        c_config.include(&wasm_headers);
+        c_config.files([
+            wasm_src.join("stdio.c"),
+            wasm_src.join("stdlib.c"),
+            wasm_src.join("string.c"),
+        ]);
+    }
+
     for path in &[
         block_dir.join("parser.c"),
         block_dir.join("scanner.c"),
