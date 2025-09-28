@@ -4,10 +4,7 @@
 #ifdef NDEBUG
 #define assert(e) ((void)0)
 #else
-__attribute__((noreturn)) void __assert_fail(const char *assertion, const char *file, unsigned line, const char *function)
-{
-    __builtin_trap();
-}
+__attribute__((noreturn)) void __assert_fail(const char *assertion, const char *file, unsigned line, const char *function);
 #define assert(expression) \
     ((expression) ? (void)0 : __assert_fail(#expression, __FILE__, __LINE__, __func__))
 #endif
